@@ -14,9 +14,26 @@ namespace App
 {
     public partial class Form1 : Form
     {
+        ProductBUS productBUS;
+
         public Form1()
         {
             InitializeComponent();
+
+            productBUS = new ProductBUS();
+        }
+
+        private void btSua_Click(object sender, EventArgs e)
+        {
+            var product = new ProductDTO();
+            product.ProductID = Int32.Parse(txtMaSP.Text);
+            product.ProductName = txtTenSP.Text;
+            product.QuantityPerUnit = txtSoLuong.Text;
+            product.UnitPrice = Int32.Parse(txtDonGia.Text);
+            product.CategoryID = Int32.Parse(cbLoaiSP.Text);
+            product.SupplierID = Int32.Parse(cbNCC.Text);
+
+            this.productBUS.Update(product);
         }
 
         #region Bien toan cuc
@@ -98,6 +115,11 @@ namespace App
         {
             themSP(txtTenSP.Text, Double.Parse(txtDonGia.Text), Int32.Parse(cbLoaiSP.SelectedValue.ToString()), Int32.Parse(cbNCC.SelectedValue.ToString()));
             gvSanPham.DataSource = LayDSSP();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
