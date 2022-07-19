@@ -14,9 +14,53 @@ namespace App
 {
     public partial class Form1 : Form
     {
+        ProductBUS productBUS;
+
         public Form1()
         {
             InitializeComponent();
+
+            productBUS = new ProductBUS();
+        }
+
+        private void btSua_Click(object sender, EventArgs e)
+        {
+            var product = getCurrentProduct();
+
+            this.productBUS.Update(product);
+        }
+
+        private void gvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if(e.RowIndex >= 0 && e.RowIndex < gvSanPham.Rows.Count)
+                {
+                    txtMaSP.Text = gvSanPham.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    txtTenSP.Text = gvSanPham.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    txtDonGia.Text = gvSanPham.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString();
+                    txtSoLuong.Text = gvSanPham.Rows[e.RowIndex].Cells["QuantityPerUnit"].Value.ToString();
+                    cbLoaiSP.SelectedIndex = int.Parse(gvSanPham.Rows[e.RowIndex].Cells["CategoryID"].Value.ToString());
+                    cbNCC.SelectedIndex = int.Parse(gvSanPham.Rows[e.RowIndex].Cells["SupplierID"].Value.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private ProductDTO getCurrentProduct()
+        {
+            var product = new ProductDTO();
+            product.ProductID = Int32.Parse(txtMaSP.Text);
+            product.ProductName = txtTenSP.Text;
+            product.QuantityPerUnit = txtSoLuong.Text;
+            product.UnitPrice = Int32.Parse(txtDonGia.Text.Replace(".",""));
+            product.CategoryID = cbLoaiSP.SelectedIndex;
+            product.SupplierID = cbLoaiSP.SelectedIndex;
+
+            return product;
         }
 
         #region Bien toan cuc
@@ -98,6 +142,11 @@ namespace App
         {
             themSP(txtTenSP.Text, Double.Parse(txtDonGia.Text), Int32.Parse(cbLoaiSP.SelectedValue.ToString()), Int32.Parse(cbNCC.SelectedValue.ToString()));
             gvSanPham.DataSource = LayDSSP();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

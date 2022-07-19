@@ -34,6 +34,8 @@
             this.dienThoaiLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtMaSP = new System.Windows.Forms.TextBox();
             this.cbNCC = new System.Windows.Forms.ComboBox();
             this.cbLoaiSP = new System.Windows.Forms.ComboBox();
             this.txtDonGia = new System.Windows.Forms.TextBox();
@@ -113,6 +115,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtMaSP);
             this.groupBox1.Controls.Add(this.cbNCC);
             this.groupBox1.Controls.Add(this.cbLoaiSP);
             this.groupBox1.Controls.Add(this.txtDonGia);
@@ -129,6 +133,23 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chi tiết";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Tên sản phẩm:";
+            // 
+            // txtMaSP
+            // 
+            this.txtMaSP.Location = new System.Drawing.Point(124, 19);
+            this.txtMaSP.Name = "txtMaSP";
+            this.txtMaSP.Size = new System.Drawing.Size(200, 20);
+            this.txtMaSP.TabIndex = 16;
+            this.txtMaSP.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // cbNCC
             // 
@@ -286,6 +307,7 @@
             this.btSua.TabIndex = 2;
             this.btSua.Text = "Sửa";
             this.btSua.UseVisualStyleBackColor = true;
+            this.btSua.Click += new System.EventHandler(this.btSua_Click);
             // 
             // btXoa
             // 
@@ -323,6 +345,7 @@
             this.gvSanPham.Name = "gvSanPham";
             this.gvSanPham.Size = new System.Drawing.Size(642, 280);
             this.gvSanPham.TabIndex = 0;
+            this.gvSanPham.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSanPham_CellClick);
             // 
             // Form1
             // 
@@ -379,5 +402,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSoLuong;
         private System.Windows.Forms.DataGridView gvSanPham;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtMaSP;
     }
 }
