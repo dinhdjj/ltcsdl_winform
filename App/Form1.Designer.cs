@@ -345,6 +345,7 @@
             this.gvSanPham.Name = "gvSanPham";
             this.gvSanPham.Size = new System.Drawing.Size(642, 280);
             this.gvSanPham.TabIndex = 0;
+            this.gvSanPham.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSanPham_CellClick);
             // 
             // Form1
             // 

@@ -25,15 +25,42 @@ namespace App
 
         private void btSua_Click(object sender, EventArgs e)
         {
+            var product = getCurrentProduct();
+
+            this.productBUS.Update(product);
+        }
+
+        private void gvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if(e.RowIndex >= 0 && e.RowIndex < gvSanPham.Rows.Count)
+                {
+                    txtMaSP.Text = gvSanPham.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    txtTenSP.Text = gvSanPham.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    txtDonGia.Text = gvSanPham.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString();
+                    txtSoLuong.Text = gvSanPham.Rows[e.RowIndex].Cells["QuantityPerUnit"].Value.ToString();
+                    cbLoaiSP.SelectedIndex = int.Parse(gvSanPham.Rows[e.RowIndex].Cells["CategoryID"].Value.ToString());
+                    cbNCC.SelectedIndex = int.Parse(gvSanPham.Rows[e.RowIndex].Cells["SupplierID"].Value.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private ProductDTO getCurrentProduct()
+        {
             var product = new ProductDTO();
             product.ProductID = Int32.Parse(txtMaSP.Text);
             product.ProductName = txtTenSP.Text;
             product.QuantityPerUnit = txtSoLuong.Text;
-            product.UnitPrice = Int32.Parse(txtDonGia.Text);
-            product.CategoryID = Int32.Parse(cbLoaiSP.Text);
-            product.SupplierID = Int32.Parse(cbNCC.Text);
+            product.UnitPrice = Int32.Parse(txtDonGia.Text.Replace(".",""));
+            product.CategoryID = cbLoaiSP.SelectedIndex;
+            product.SupplierID = cbLoaiSP.SelectedIndex;
 
-            this.productBUS.Update(product);
+            return product;
         }
 
         #region Bien toan cuc
